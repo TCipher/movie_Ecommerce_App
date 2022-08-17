@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using movie_Ecommerce_App.Data;
+using movie_Ecommerce_App.Data.Services;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -31,6 +32,10 @@ namespace movie_Ecommerce_App
             //using the options to configure the sql server.
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString
                 ("DefaultConnectionString")));
+
+            //Services configuration// using ths scoped lifetime(created once per request within the scope,i.e the scoped object  are the same within a request
+            //but different across different request.
+            services.AddScoped<IActorsService, ActorsService>();
             
             services.AddControllersWithViews();
         }
