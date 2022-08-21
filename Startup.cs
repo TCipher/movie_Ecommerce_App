@@ -36,7 +36,11 @@ namespace movie_Ecommerce_App
             //Services configuration// using ths scoped lifetime(created once per request within the scope,i.e the scoped object  are the same within a request
             //but different across different request.
             services.AddScoped<IActorsService, ActorsService>();
-            
+            services.AddScoped<IProducersService, ProducerService>();
+            services.AddScoped<ICinemasService, CinemasService>();
+            services.AddScoped<IMoviesService, MoviesService>();
+
+
             services.AddControllersWithViews();
         }
 

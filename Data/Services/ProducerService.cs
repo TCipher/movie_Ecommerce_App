@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace movie_Ecommerce_App.Data.Services
 {
-    //Services For interacting with the databse using EFC
-   public interface IActorsService : IEntityBaseRepository<Actor>
+    public class ProducerService : EntityBaseRepository<Producer>, IProducersService
     {
-        
+        public ProducerService(AppDbContext context) : base(context)
+        {
+
+        }
     }
 }
