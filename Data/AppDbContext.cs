@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace movie_Ecommerce_App.Data
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -38,5 +38,11 @@ namespace movie_Ecommerce_App.Data
         public DbSet<Actor_Movie> Actors_Movie { get; set; }
         public DbSet<Cinema> Cinemas { get; set; }
         public DbSet<Producer> Producers { get; set; }
+
+        //orders related tables
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItems{get; set;}
+
     }
 }

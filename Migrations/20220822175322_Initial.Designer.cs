@@ -10,8 +10,8 @@ using movie_Ecommerce_App.Data;
 namespace movie_Ecommerce_App.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220819102257_Intial")]
-    partial class Intial
+    [Migration("20220822175322_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -69,12 +69,15 @@ namespace movie_Ecommerce_App.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Logo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -125,6 +128,52 @@ namespace movie_Ecommerce_App.Migrations
                     b.ToTable("Movies");
                 });
 
+            modelBuilder.Entity("movie_Ecommerce_App.Models.Order", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("movie_Ecommerce_App.Models.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItems");
+                });
+
             modelBuilder.Entity("movie_Ecommerce_App.Models.Producer", b =>
                 {
                     b.Property<int>("Id")
@@ -148,6 +197,29 @@ namespace movie_Ecommerce_App.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Producers");
+                });
+
+            modelBuilder.Entity("movie_Ecommerce_App.Models.ShoppingCartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ShoppingCartId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("ShoppingCartItems");
                 });
 
             modelBuilder.Entity("movie_Ecommerce_App.Models.Actor_Movie", b =>
@@ -188,6 +260,34 @@ namespace movie_Ecommerce_App.Migrations
                     b.Navigation("Producer");
                 });
 
+            modelBuilder.Entity("movie_Ecommerce_App.Models.OrderItem", b =>
+                {
+                    b.HasOne("movie_Ecommerce_App.Models.Movie", "movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("movie_Ecommerce_App.Models.Order", "order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("movie");
+
+                    b.Navigation("order");
+                });
+
+            modelBuilder.Entity("movie_Ecommerce_App.Models.ShoppingCartItem", b =>
+                {
+                    b.HasOne("movie_Ecommerce_App.Models.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId");
+
+                    b.Navigation("Movie");
+                });
+
             modelBuilder.Entity("movie_Ecommerce_App.Models.Actor", b =>
                 {
                     b.Navigation("Actor_Movies");
@@ -201,6 +301,11 @@ namespace movie_Ecommerce_App.Migrations
             modelBuilder.Entity("movie_Ecommerce_App.Models.Movie", b =>
                 {
                     b.Navigation("Actor_Movies");
+                });
+
+            modelBuilder.Entity("movie_Ecommerce_App.Models.Order", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("movie_Ecommerce_App.Models.Producer", b =>

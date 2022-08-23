@@ -37,13 +37,13 @@
                         </p>
                         <p class="card-text">
                             <b>Producer: </b>
-                            <a asp-controller="Producers" asp-action="Details" asp-route-id=" @Model.ProducerId">
+                            <a asp-controller="Producer" asp-action="Details" asp-route-id=" @Model.ProducerId">
                                 @Model.Producer.FullName
                             </a>
 
                         </p>
                         <p class="card-text"><b> Category: </b>@Model.MovieCategory</p>
-                        <p class="card-text"><b> Start Date: </b>@Model.StartDate.ToString("dd MMM yy")</p>
+                        <p class="card-text"><b> Start Date: </b>@Model.StartDate</p>
                         <p class="card-text"><b> End Date: </b>@Model.EndDate</p>
                         <p class="card-text">
                             <b>Status: </b>
