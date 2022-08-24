@@ -17,11 +17,11 @@ namespace movie_Ecommerce_App.Models
 
         public int MovieId { get; set; }
         [ForeignKey("MovieId")]
-        public  Movie movie { get; set; }
+        public  Movie Movie { get; set; }
 
         public int OrderId { get; set; }
         [ForeignKey("OrderId")]
-        public Order order { get; set; }
+        public Order Order { get; set; }
 
     }
 }

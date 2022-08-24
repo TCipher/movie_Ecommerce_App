@@ -71,7 +71,7 @@
                                 @foreach (var actor in Model.Actor_Movies)
                                 {
                                     <div class="column text-center ">
-                                        <img class="border-info rounded-circle" src="@actor.Actor.ProfilePicture" style="max-width: 150px"/>
+                                        <img class="border-info rounded-circle" src="@actor.Actor.ProfilePicture" style="max-width: 150px" />
                                         <br />
                                         <a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.ActorId">@actor.Actor.FullName</a>
                                     </div>
@@ -85,9 +85,9 @@
                     <div class="card-footer">
                         <p class="card-text">
                             <a class="btn btn-outline-primary float-right" asp-action="Index">
-                               Back to List
+                                Back to List
                             </a>
-                            <a class="btn btn-success float-left mb-2 text-white"><i class="bi bi-cart-plus"></i>Add to Cart(price @Model.Price.ToString("c"))</a>
+                            <a class="btn btn-success float-left mb-2 text-white" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@Model.Id"><i class="bi bi-cart-plus"></i>Add to Cart(price @Model.Price.ToString("c"))</a>
                         </p>
 
                     </div>
